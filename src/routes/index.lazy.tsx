@@ -1,3 +1,5 @@
+import { ProjectSelector } from "@components/feature/dashboard/ProjectSelector";
+import { PageWrapper } from "@components/generic/PageWrapper";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
@@ -5,9 +7,12 @@ export const Route = createLazyFileRoute("/")({
 });
 
 export const Home = () => {
+  // add currently selected project to local storage
+  // mapp and display all projects
+  // add button to create new project
   return (
-    <div>
-      <h1 className="text-green-500">Home page</h1>
-    </div>
+    <PageWrapper>
+      <ProjectSelector />
+    </PageWrapper>
   );
 }

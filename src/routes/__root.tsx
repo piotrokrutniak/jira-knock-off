@@ -1,8 +1,9 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { useTheme } from "@components/ThemeManager";
 import "../index.css";
 import clsx from "clsx";
+import { Navbar } from "@components/feature/navbar/Navbar";
 
 export const Route = createRootRoute({
   component: () => <RootComponent />,
@@ -18,14 +19,7 @@ const RootComponent = () => {
   return (
     <>
       <div className={rootStyles}>
-        <div className="p-2 flex gap-2 bg-blue-500 text-white">
-          <Link to="/" className="[&.active]:font-bold">
-            Home
-          </Link>{" "}
-          <Link to="/about" className="[&.active]:font-bold">
-            About
-          </Link>
-        </div>
+        <Navbar />
         <hr />
         <Outlet />
         <TanStackRouterDevtools />
