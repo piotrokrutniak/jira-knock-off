@@ -15,7 +15,7 @@ import { HTMLInputTypeAttribute } from "react";
 import { Textarea } from "@components/ui/textarea";
  
 const formSchema = z.object({
-  id: z.string().min(2).max(50),
+  id: z.string().optional(),
   name: z.string().min(2).max(50),
   description: z.string().min(0).max(200).optional(),
 })
@@ -37,7 +37,7 @@ export const CreateProjectForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
-        <ControlledFormInput name="name" control={form.control} label="Project ID" placeholder="Enter project name"/>
+        <ControlledFormInput name="name" control={form.control} label="Project Name" placeholder="Enter project name"/>
         <ControlledFormTextArea name="description" control={form.control} label="Project description" placeholder="Enter project description"/>
         <div className="flex gap-2 place-self-end">
           <Button variant={"secondary"} type="button" className="w-fit">Cancel</Button>
