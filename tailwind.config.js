@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { capitalizeFirst } = require('./src/utils/tailwind/capitalizeFirst');
+const { capitalizeFirst } = require("./src/utils/tailwind/capitalizeFirst");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { gridAutoFit } = require('./src/utils/tailwind/gridAutoFit')
+const { gridAutoFit } = require("./src/utils/tailwind/gridAutoFit");
 
 module.exports = {
   darkMode: ["class"],

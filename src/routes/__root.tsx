@@ -14,7 +14,7 @@ const RootComponent = () => {
   const rootStyles = clsx([
     "flex flex-col min-h-screen flex-1",
     theme === "light" ? "bg-white text-black" : "bg-black text-white",
-  ])
+  ]);
 
   return (
     <>
@@ -25,5 +25,5 @@ const RootComponent = () => {
         <TanStackRouterDevtools />
       </div>
     </>
-  )
-}
+  );
+};

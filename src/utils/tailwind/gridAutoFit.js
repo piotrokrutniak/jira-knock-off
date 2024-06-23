@@ -6,10 +6,10 @@ export const gridAutoFit = plugin(
     matchUtilities(
       {
         "grid-auto-fit": (value) => ({
-          gridTemplateColumns: `repeat(auto-fit, minmax(${value}, 1fr))`
-        })
+          gridTemplateColumns: `repeat(auto-fit, minmax(${value}, 1fr))`,
+        }),
       },
-      { values: theme("gridAutoFit") }
+      { values: theme("gridAutoFit") },
     );
   },
   {
@@ -22,8 +22,8 @@ export const gridAutoFit = plugin(
         sm: "14rem",
         md: "16rem",
         lg: "18rem",
-        xl: "20rem"
-      }
-    }
-  }
+        xl: "20rem",
+      },
+    },
+  },
 );

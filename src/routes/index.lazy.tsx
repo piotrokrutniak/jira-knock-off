@@ -3,7 +3,7 @@ import { PageWrapper } from "@components/generic/PageWrapper";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
-  component: () => <Home/>,
+  component: () => <Home />,
 });
 
 export const Home = () => {
@@ -15,4 +15,4 @@ export const Home = () => {
       <ProjectSelector />
     </PageWrapper>
   );
-}
+};

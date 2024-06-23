@@ -7,7 +7,7 @@
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
       "@utils/*": ["./src/utils/*"],
-      "@customtypes/*": ["./src/types/*"],
+      "@customtypes/*": ["./src/types/*"]
     }
   },
   "include": ["src"],

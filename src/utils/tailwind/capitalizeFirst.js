@@ -4,8 +4,8 @@ const plugin = require("tailwindcss/plugin");
 export const capitalizeFirst = plugin(function ({ addUtilities }) {
   const newUtilities = {
     ".capitalize-first:first-letter": {
-      textTransform: "uppercase"
-    }
+      textTransform: "uppercase",
+    },
   };
   addUtilities(newUtilities, ["responsive", "hover"]);
 });
