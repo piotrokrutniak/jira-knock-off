@@ -36,7 +36,7 @@ const ProjectPanel = (project: ProjectType) => {
         "shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-slate-200/5",
       ])}
     >
-      Project name
+      {project.name ?? "Project name"}
     </div>
   );
 };
