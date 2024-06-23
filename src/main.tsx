@@ -6,6 +6,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ThemeManager } from "./components/ThemeManager";
 
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
@@ -23,7 +24,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <ThemeManager>
+          <RouterProvider router={router} />
+        </ThemeManager>
       </QueryClientProvider>
     </StrictMode>,
   );
