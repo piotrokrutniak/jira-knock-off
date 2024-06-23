@@ -12,7 +12,7 @@ export const Route = createRootRoute({
 const RootComponent = () => {
   const { theme } = useTheme();
   const rootStyles = clsx([
-    "flex flex-col min-h-screen flex-1 border-2 border-red-500",
+    "flex flex-col min-h-screen flex-1",
     theme === "light" ? "bg-white text-black" : "bg-black text-white",
   ])
 
