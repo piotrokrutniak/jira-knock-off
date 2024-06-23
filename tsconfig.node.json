@@ -7,7 +7,7 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "emitDeclarationOnly": true,
+    "noEmit": true,
     "paths": {
       "@hooks/*": ["./src/hooks/*"],
       "@components/*": ["./src/components/*"],
