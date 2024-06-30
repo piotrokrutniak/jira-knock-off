@@ -6,14 +6,20 @@ import { useNavigate } from "@tanstack/react-router";
 import { Form } from "@components/ui/form";
 import { ControlledFormInput } from "@components/generic/forms/ControlledFormInput";
 import { useMutationSignUp } from "@hooks/users/mutations/useMutationSignUp";
+import { Link } from "@tanstack/react-router";
 
-const formSchema = z.object({
-  email: z.string().email(),
-  firstName: z.string().min(8).max(24).optional(),
-  lastName: z.string().min(0).max(200).optional(),
-  password: z.string().min(8).max(24),
-  confirmedPassword: z.string().min(8).max(24),
-});
+const formSchema = z
+  .object({
+    email: z.string().email(),
+    firstName: z.string().min(1).max(24),
+    lastName: z.string().min(1).max(24),
+    password: z.string().min(8).max(24),
+    confirmedPassword: z.string().min(8).max(24),
+  })
+  .refine((data) => data.password === data.confirmedPassword, {
+    message: "Passwords do not match", // Custom error message
+    path: ["confirmedPassword"], // Path of the field that the error is associated with
+  });
 
 export type SignUpDto = z.infer<typeof formSchema>;
 
@@ -33,19 +39,14 @@ export const SignUpForm = () => {
   const { mutate: signUp } = useMutationSignUp();
 
   function onSubmit(values: SignUpDto) {
-    console.log(values);
     signUp(values);
   }
-
-  const navigateToSignIn = () => {
-    navigate({ to: "/auth/signUp" }).catch(console.error);
-  };
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-8 w-full max-w-lg"
+        className="flex flex-col gap-2 w-full max-w-lg"
       >
         <ControlledFormInput
           name="email"
@@ -82,16 +83,11 @@ export const SignUpForm = () => {
           label="Confirm Password"
           placeholder="Confirm your password"
         />
-        <div className="flex gap-2 place-self-end">
-          <Button
-            variant={"secondary"}
-            type="button"
-            className="w-fit"
-            onClick={navigateToSignIn}
-          >
-            Sign In Instead
-          </Button>
-          <Button type="submit" className="w-fit">
+        <div className="flex max-sm:flex-col-reverse mt-4 gap-8 justify-between">
+          <Link to="/auth/signIn" className="underline sm:place-self-center">
+            Already have an account? Sign in here.
+          </Link>
+          <Button type="submit" className="w-full sm:w-fit">
             Create Account
           </Button>
         </div>

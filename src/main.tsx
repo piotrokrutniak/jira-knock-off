@@ -7,6 +7,7 @@ import { routeTree } from "./routeTree.gen";
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "./components/ThemeManager";
+import UserManager from "@hooks/users/UserManager";
 
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
@@ -25,7 +26,9 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-          <RouterProvider router={router} />
+          <UserManager>
+            <RouterProvider router={router} />
+          </UserManager>
         </ThemeProvider>
       </QueryClientProvider>
     </StrictMode>,

@@ -9,7 +9,7 @@ export const Route = createLazyFileRoute("/auth/signUp")({
 const SignInPage = () => {
   return (
     <>
-      <PageWrapper className="flex justify-center items-center h-full">
+      <PageWrapper className="flex sm:justify-center items-center h-full">
         <>
           <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
           <p className="text-xl mb-4">Create your account.</p>

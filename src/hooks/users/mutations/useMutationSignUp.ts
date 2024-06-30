@@ -1,14 +1,15 @@
 import { SignUpDto } from "@components/feature/auth/signUp/SignUpForm";
+import { axiosInstance } from "@hooks/axios/useAxios";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 
 export const useMutationSignUp = () => {
   return useMutation({
-    mutationFn: signUp
+    mutationKey: ["signUp"],
+    mutationFn: signUp,
   });
 };
 
 const signUp = async (data: SignUpDto): Promise<unknown> => {
-  const response = await axios.post("/api/auth/signUp", data);
+  const response = await axiosInstance.post("/authentication/register", data);
   return response.data;
 };
