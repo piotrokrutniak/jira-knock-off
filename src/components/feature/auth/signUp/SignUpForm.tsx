@@ -36,7 +36,7 @@ export const SignUpForm = () => {
     },
   });
 
-  const { mutate: signUp } = useMutationSignUp();
+  const { mutate: signUp, isPending, isSuccess, error } = useMutationSignUp();
 
   function onSubmit(values: SignUpDto) {
     signUp(values);
@@ -83,12 +83,13 @@ export const SignUpForm = () => {
           label="Confirm Password"
           placeholder="Confirm your password"
         />
+        {error && <p className="text-red-500">{error.message}</p>}
         <div className="flex max-sm:flex-col-reverse mt-4 gap-8 justify-between">
           <Link to="/auth/signIn" className="underline sm:place-self-center">
             Already have an account? Sign in here.
           </Link>
-          <Button type="submit" className="w-full sm:w-fit">
-            Create Account
+          <Button disabled={isPending} type="submit" className="w-full sm:w-fit">
+            {isPending ? "Creating account..." : "Create Account"}
           </Button>
         </div>
       </form>

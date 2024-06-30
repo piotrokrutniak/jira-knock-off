@@ -26,7 +26,7 @@ export const SignInForm = () => {
     },
   });
 
-  const { mutate: signIn, isSuccess } = useMutationSignIn();
+  const { mutate: signIn, isPending, isSuccess, error } = useMutationSignIn();
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
@@ -59,12 +59,18 @@ export const SignInForm = () => {
           label="Password"
           placeholder="Enter your password"
         />
+        {error && <p className="text-red-500">{error.message}</p>}
+        {isSuccess && <p className="text-green-500">Sign in successful, you'll be redirected shortly...</p>}
         <div className="flex max-sm:flex-col-reverse mt-4 gap-8 justify-between">
           <Link to="/auth/signUp" className="underline sm:place-self-center">
             New around here? Sign up.
           </Link>
-          <Button type="submit" className="w-full sm:w-fit">
-            Sign In
+          <Button
+            disabled={isPending}
+            type="submit"
+            className="w-full sm:w-fit"
+          >
+            {isPending ? "Signing in..." : "Sign In"}
           </Button>
         </div>
       </form>

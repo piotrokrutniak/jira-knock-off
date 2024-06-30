@@ -19,7 +19,7 @@ export const Navbar = () => {
     <div className="p-2  bg-blue-500 text-white w-full shadow-sm shadow-black">
       <div className="max-w-5xl flex justify-between gap-2 m-auto place-items-center">
         <Link to="/">
-            <span className="font-bold">Jira</span>
+          <span className="font-bold">Jira</span>
         </Link>
         <div className="flex gap-2">
           {isSignedIn ? (
@@ -42,7 +42,10 @@ export const Navbar = () => {
             </>
           ) : (
             <>
-              <Button variant={"ghost"} onClick={() => navigate({ to: "/auth/signUp" })}>
+              <Button
+                variant={"ghost"}
+                onClick={() => navigate({ to: "/auth/signUp" })}
+              >
                 Sign Up
               </Button>
               <Button onClick={() => navigate({ to: "/auth/signIn" })}>

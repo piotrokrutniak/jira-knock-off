@@ -16,8 +16,17 @@ export const useMutationSignIn = () => {
 };
 
 const signIn = async (data: SignInDto): Promise<User> => {
-  const response = await axiosInstance.post("/authentication/log-in", data, {
-    withCredentials: true,
-  });
-  return response.data;
+  try {
+    const response = await axiosInstance.post("/authentication/log-in", data);
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      const errorMessage =
+        error.response.data?.message || "An error occurred during sign-in.";
+      throw new Error(errorMessage);
+    } else {
+      // This is not an HTTP error, so re-throw it
+      throw error;
+    }
+  }
 };
