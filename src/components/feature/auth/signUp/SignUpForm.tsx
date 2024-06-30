@@ -5,6 +5,7 @@ import { Button } from "@components/ui/button";
 import { useNavigate } from "@tanstack/react-router";
 import { Form } from "@components/ui/form";
 import { ControlledFormInput } from "@components/generic/forms/ControlledFormInput";
+import { useMutationSignUp } from "@hooks/users/mutations/useMutationSignUp";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -14,9 +15,11 @@ const formSchema = z.object({
   confirmedPassword: z.string().min(8).max(24),
 });
 
+export type SignUpDto = z.infer<typeof formSchema>;
+
 export const SignUpForm = () => {
   const navigate = useNavigate();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<SignUpDto>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -27,8 +30,11 @@ export const SignUpForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const { mutate: signUp } = useMutationSignUp();
+
+  function onSubmit(values: SignUpDto) {
     console.log(values);
+    signUp(values);
   }
 
   const navigateToSignIn = () => {
