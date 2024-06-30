@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Input } from "@components/ui/input";
 import { ProjectType } from "@customtypes/types";
+import { useNavigate } from "@tanstack/react-router";
 
 export const ProjectSelector = () => {
   const [projects, setProjects] = useState([]); // [Project, Project, Project
@@ -42,6 +43,7 @@ const ProjectPanel = (project: ProjectType) => {
 };
 
 const AddProjectPanel = () => {
+  const navigate = useNavigate();
   // navigate to create project page
   return (
     <div
@@ -49,6 +51,8 @@ const AddProjectPanel = () => {
         "p-16 aspect-square rounded-lg border-2 flex place-content-center justify-center items-center",
         "shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-slate-200/5",
       ])}
+      role="button"
+      onClick={() => navigate({ to: "/projects/create" }).catch(console.error)}
     >
       <FaPlus className="flex" />
     </div>

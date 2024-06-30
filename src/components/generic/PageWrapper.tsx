@@ -7,6 +7,9 @@ export const PageWrapper = ({
   children: JSX.Element;
   className?: string;
 }) => {
-  const styles = clsx(["max-w-5xl w-full mx-auto p-6"], className);
+  const styles = clsx(
+    ["max-w-5xl w-full mx-auto p-6 flex flex-col flex-1"],
+    className,
+  );
   return <div className={styles}>{children}</div>;
 };

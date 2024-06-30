@@ -2,25 +2,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@components/ui/button";
+import { useNavigate } from "@tanstack/react-router";
 import { Form } from "@components/ui/form";
 import { ControlledFormInput } from "@components/generic/forms/ControlledFormInput";
-import { ControlledFormTextArea } from "@components/generic/forms/ControlledFormTextArea";
-import { useNavigate } from "@tanstack/react-router";
 
 const formSchema = z.object({
-  id: z.string().optional(),
-  name: z.string().min(2).max(50),
-  description: z.string().min(0).max(200).optional(),
+  email: z.string().email(),
+  password: z.string().min(8).max(24),
 });
 
-export const CreateProjectForm = () => {
+export const SignInForm = () => {
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: "",
-      name: "",
-      description: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -28,39 +25,41 @@ export const CreateProjectForm = () => {
     console.log(values);
   };
 
-  const onCancel = () => {
-    navigate({ to: "/" });
+  const navigateToSignUp = () => {
+    navigate({ to: "/auth/signUp" }).catch(console.error);
   };
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-8"
+        className="flex flex-col gap-8 w-full max-w-lg"
       >
         <ControlledFormInput
-          name="name"
+          name="email"
+          type="email"
           control={form.control}
-          label="Project Name"
-          placeholder="Enter project name"
+          label="Email"
+          placeholder="Enter your email"
         />
-        <ControlledFormTextArea
-          name="description"
+        <ControlledFormInput
+          name="password"
+          type="password"
           control={form.control}
-          label="Project description"
-          placeholder="Enter project description"
+          label="Password"
+          placeholder="Enter your password"
         />
         <div className="flex gap-2 place-self-end">
           <Button
             variant={"secondary"}
             type="button"
             className="w-fit"
-            onClick={onCancel}
+            onClick={navigateToSignUp}
           >
-            Cancel
+            Sign Up Instead
           </Button>
           <Button type="submit" className="w-fit">
-            Submit
+            Sign In
           </Button>
         </div>
       </form>
