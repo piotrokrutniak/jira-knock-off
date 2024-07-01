@@ -2,10 +2,11 @@ import { SignUpDto } from "@components/feature/auth/signUp/SignUpForm";
 import { axiosInstance } from "@hooks/axios/useAxios";
 import { useMutation } from "@tanstack/react-query";
 
-export const useMutationSignUp = () => {
+export const useMutationSignUp = (onSuccess?: () => void) => {
   return useMutation({
     mutationKey: ["signUp"],
     mutationFn: signUp,
+    onSuccess
   });
 };
 

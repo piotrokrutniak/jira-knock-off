@@ -19,6 +19,8 @@ export interface User {
 interface UserContextProps {
   user: User | null;
   setUser: (user: User | null) => void;
+  selectedProject: string | null;
+  setSelectedProject: (id: string | null) => void;
   isSignedIn: boolean;
   handleSignOut: () => void;
 }
@@ -26,6 +28,8 @@ interface UserContextProps {
 export const UserContext = createContext<UserContextProps>({
   user: null,
   setUser: () => {},
+  selectedProject: null,
+  setSelectedProject: () => {},
   isSignedIn: false,
   handleSignOut: () => {},
 });
@@ -41,8 +45,10 @@ export const useUserContext = () => {
 const UserManager = ({ children }: { children: React.ReactNode }) => {
   // const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
+  const [selectedProject, setSelectedProject] = useState<string | null>("");
   const isSignedIn = useMemo(() => !!user, [user]);
   const { mutate: signOut } = useMutationSignOut();
+  
 
   const handleSignOut = () => {
     setUser(null);
@@ -56,7 +62,7 @@ const UserManager = ({ children }: { children: React.ReactNode }) => {
   }, [isSignedIn]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, isSignedIn, handleSignOut }}>
+    <UserContext.Provider value={{ user, setUser, selectedProject, setSelectedProject, isSignedIn, handleSignOut }}>
       {children}
     </UserContext.Provider>
   );

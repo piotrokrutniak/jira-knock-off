@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@components/ui/button";
-import { useNavigate } from "@tanstack/react-router";
 import { Form } from "@components/ui/form";
+import { useNavigate } from "@tanstack/react-router";
 import { ControlledFormInput } from "@components/generic/forms/ControlledFormInput";
 import { useMutationSignUp } from "@hooks/users/mutations/useMutationSignUp";
 import { Link } from "@tanstack/react-router";
@@ -21,11 +21,13 @@ const formSchema = z
     path: ["confirmedPassword"], // Path of the field that the error is associated with
   });
 
-export type SignUpDto = z.infer<typeof formSchema>;
+export type SignUpSchema = z.infer<typeof formSchema>;
+
+export type SignUpDto = Omit<SignUpSchema, 'confirmedPassword'>;
 
 export const SignUpForm = () => {
   const navigate = useNavigate();
-  const form = useForm<SignUpDto>({
+  const form = useForm<SignUpSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -36,11 +38,20 @@ export const SignUpForm = () => {
     },
   });
 
-  const { mutate: signUp, isPending, isSuccess, error } = useMutationSignUp();
+  const onSuccess = () => {
+    navigate({ to: "/auth/signIn" })
+  };
 
-  function onSubmit(values: SignUpDto) {
-    signUp(values);
+  const onSubmit = (values: SignUpSchema) => {
+    signUp({
+      email: values.email,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      password: values.password,
+    });
   }
+
+  const { mutate: signUp, isPending, isSuccess, error } = useMutationSignUp(onSuccess);
 
   return (
     <Form {...form}>
@@ -84,6 +95,7 @@ export const SignUpForm = () => {
           placeholder="Confirm your password"
         />
         {error && <p className="text-red-500">{error.message}</p>}
+        {isSuccess && <p className="text-green-500">Account created successfully!</p>}
         <div className="flex max-sm:flex-col-reverse mt-4 gap-8 justify-between">
           <Link to="/auth/signIn" className="underline sm:place-self-center">
             Already have an account? Sign in here.

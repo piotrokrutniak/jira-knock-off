@@ -1,18 +1,18 @@
 export type ProjectType = {
-  id: string;
+  _id: string;
   name: string;
   description: string;
 };
 
 export type UserType = {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   projects: ProjectType[];
 };
 
 export type StoryType = {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   status: StatusType;
@@ -24,7 +24,7 @@ export type StoryType = {
 };
 
 export type TaskType = {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   priority: PriorityType;
