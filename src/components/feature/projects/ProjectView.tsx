@@ -6,16 +6,13 @@ import { FaArrowLeft } from "react-icons/fa";
 export const ProjectView = () => {
   const { selectedProject, setSelectedProject } = useUserContext();
 
-  return (
-    <ProjectHeader />
-  );
+  return <ProjectHeader />;
 };
 
 const ProjectHeader = () => {
   const { selectedProject, setSelectedProject } = useUserContext();
   const navigate = useNavigate();
-  
-  
+
   const { data: project } = useQueryGetProjectById(selectedProject ?? "");
 
   const handleGoBack = () => {

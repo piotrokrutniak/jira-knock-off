@@ -16,7 +16,7 @@ export const Home = () => {
 
   return (
     <PageWrapper>
-      {selectedProject ? <ProjectView/> : <ProjectSelector />}
+      {selectedProject ? <ProjectView /> : <ProjectSelector />}
     </PageWrapper>
   );
 };

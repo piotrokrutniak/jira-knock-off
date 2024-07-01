@@ -6,7 +6,7 @@ export const useMutationSignUp = (onSuccess?: () => void) => {
   return useMutation({
     mutationKey: ["signUp"],
     mutationFn: signUp,
-    onSuccess
+    onSuccess,
   });
 };
 

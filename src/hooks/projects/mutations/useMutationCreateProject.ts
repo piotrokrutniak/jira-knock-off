@@ -19,7 +19,8 @@ const createProject = async (data: CreateProjectDto): Promise<unknown> => {
   } catch (error: any) {
     if (error.response) {
       const errorMessage =
-        error.response.data?.message || "An error occurred during project creation.";
+        error.response.data?.message ||
+        "An error occurred during project creation.";
       throw new Error(errorMessage);
     } else {
       // This is not an HTTP error, so re-throw it

@@ -23,7 +23,7 @@ const formSchema = z
 
 export type SignUpSchema = z.infer<typeof formSchema>;
 
-export type SignUpDto = Omit<SignUpSchema, 'confirmedPassword'>;
+export type SignUpDto = Omit<SignUpSchema, "confirmedPassword">;
 
 export const SignUpForm = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export const SignUpForm = () => {
   });
 
   const onSuccess = () => {
-    navigate({ to: "/auth/signIn" })
+    navigate({ to: "/auth/signIn" });
   };
 
   const onSubmit = (values: SignUpSchema) => {
@@ -49,9 +49,14 @@ export const SignUpForm = () => {
       lastName: values.lastName,
       password: values.password,
     });
-  }
+  };
 
-  const { mutate: signUp, isPending, isSuccess, error } = useMutationSignUp(onSuccess);
+  const {
+    mutate: signUp,
+    isPending,
+    isSuccess,
+    error,
+  } = useMutationSignUp(onSuccess);
 
   return (
     <Form {...form}>
@@ -95,12 +100,18 @@ export const SignUpForm = () => {
           placeholder="Confirm your password"
         />
         {error && <p className="text-red-500">{error.message}</p>}
-        {isSuccess && <p className="text-green-500">Account created successfully!</p>}
+        {isSuccess && (
+          <p className="text-green-500">Account created successfully!</p>
+        )}
         <div className="flex max-sm:flex-col-reverse mt-4 gap-8 justify-between">
           <Link to="/auth/signIn" className="underline sm:place-self-center">
             Already have an account? Sign in here.
           </Link>
-          <Button disabled={isPending} type="submit" className="w-full sm:w-fit">
+          <Button
+            disabled={isPending}
+            type="submit"
+            className="w-full sm:w-fit"
+          >
             {isPending ? "Creating account..." : "Create Account"}
           </Button>
         </div>

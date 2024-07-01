@@ -60,7 +60,11 @@ export const SignInForm = () => {
           placeholder="Enter your password"
         />
         {error && <p className="text-red-500">{error.message}</p>}
-        {isSuccess && <p className="text-green-500">Sign in successful, you'll be redirected shortly...</p>}
+        {isSuccess && (
+          <p className="text-green-500">
+            Sign in successful, you'll be redirected shortly...
+          </p>
+        )}
         <div className="flex max-sm:flex-col-reverse mt-4 gap-8 justify-between">
           <Link to="/auth/signUp" className="underline sm:place-self-center">
             New around here? Sign up.

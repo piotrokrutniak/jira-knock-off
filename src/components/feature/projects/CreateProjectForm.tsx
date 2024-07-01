@@ -18,7 +18,12 @@ export type CreateProjectDto = z.infer<typeof formSchema>;
 
 export const CreateProjectForm = () => {
   const navigate = useNavigate();
-  const { mutate: createProject, isError, error, isSuccess } = useMutationCreateProject();
+  const {
+    mutate: createProject,
+    isError,
+    error,
+    isSuccess,
+  } = useMutationCreateProject();
   const form = useForm<CreateProjectDto>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,7 +68,11 @@ export const CreateProjectForm = () => {
           placeholder="Enter project description"
         />
         {isError && <div className="text-red-500">{error.message}</div>}
-        {isSuccess && <div className="text-green-500">Project created successfully. Redirecting...</div>}
+        {isSuccess && (
+          <div className="text-green-500">
+            Project created successfully. Redirecting...
+          </div>
+        )}
         <div className="flex gap-2 place-self-end">
           <Button
             variant={"secondary"}

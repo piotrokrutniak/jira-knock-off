@@ -48,7 +48,6 @@ const UserManager = ({ children }: { children: React.ReactNode }) => {
   const [selectedProject, setSelectedProject] = useState<string | null>("");
   const isSignedIn = useMemo(() => !!user, [user]);
   const { mutate: signOut } = useMutationSignOut();
-  
 
   const handleSignOut = () => {
     setUser(null);
@@ -62,7 +61,16 @@ const UserManager = ({ children }: { children: React.ReactNode }) => {
   }, [isSignedIn]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, selectedProject, setSelectedProject, isSignedIn, handleSignOut }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        selectedProject,
+        setSelectedProject,
+        isSignedIn,
+        handleSignOut,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
