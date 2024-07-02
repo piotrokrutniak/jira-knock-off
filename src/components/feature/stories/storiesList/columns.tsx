@@ -1,14 +1,14 @@
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table";
 
 export type StoryDisplay = {
-  id: string
-  title: string
-  owner: string
-  projectName: string
-  projectId: string
-  priority: string
-  status: string
-}
+  id: string;
+  title: string;
+  owner: string;
+  projectName: string;
+  projectId: string;
+  priority: string;
+  status: string;
+};
 
 export const columns: ColumnDef<StoryDisplay>[] = [
   {
@@ -27,4 +27,4 @@ export const columns: ColumnDef<StoryDisplay>[] = [
     header: "Status",
     accessorKey: "status",
   },
-]
+];

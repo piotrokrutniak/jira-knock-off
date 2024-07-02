@@ -49,7 +49,9 @@ const ProjectStories = () => {
     <div className="flex flex-col gap-8 flex-1">
       <div className="flex justify-between gap-8 mt-8">
         <h2 className="text-xl font-semibold">Stories</h2>
-        <Button onClick={handleAddStory}><FaPlus className="mr-2"/> Add New Story</Button>
+        <Button onClick={handleAddStory}>
+          <FaPlus className="mr-2" /> Add New Story
+        </Button>
       </div>
       <StoriesList selectedProject={selectedProject ?? ""} />
       {/* <NoStories /> */}
@@ -62,11 +64,13 @@ const NoStories = () => {
     <div className="flex-1 content-center p-8 bg-slate-50/50 rounded-lg">
       <p className="text-center">Any stories you create will go here.</p>
     </div>
-  )
+  );
 };
 
-const StoriesList = ({selectedProject}: {selectedProject: string}) => {
-  const { data: stories } = useQueryGetStoriesByProjectId(selectedProject ?? "");
+const StoriesList = ({ selectedProject }: { selectedProject: string }) => {
+  const { data: stories } = useQueryGetStoriesByProjectId(
+    selectedProject ?? "",
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,17 +78,19 @@ const StoriesList = ({selectedProject}: {selectedProject: string}) => {
   }, [stories]);
 
   const tableData: StoryDisplay[] = useMemo(() => {
-    return stories?.map((story) => ({
-      ...story,
-      id: story.id,
-      project: story.project.id,
-      owner: story.owner.id,
-      title: story.title,
-      status: story.status,
-      priority: story.priority,
-      projectName: story.project.name,
-      projectId: story.project.id,
-    })) ?? [];
+    return (
+      stories?.map((story) => ({
+        ...story,
+        id: story.id,
+        project: story.project.id,
+        owner: story.owner.id,
+        title: story.title,
+        status: story.status,
+        priority: story.priority,
+        projectName: story.project.name,
+        projectId: story.project.id,
+      })) ?? []
+    );
   }, [stories]);
 
   const viewUser = (id: string) => {
@@ -92,16 +98,18 @@ const StoriesList = ({selectedProject}: {selectedProject: string}) => {
   };
 
   const viewStory = (projectId: string, storyId: string) => {
-    navigate({ to: `/projects/${projectId}/stories/${storyId}` }).catch(console.error);
+    navigate({ to: `/projects/${projectId}/stories/${storyId}` }).catch(
+      console.error,
+    );
   };
 
   const onClicks = {
     title: (data: StoryDisplay) => {
-      console.log("viewStory", data)
-      viewStory(data.projectId, data.id)
+      console.log("viewStory", data);
+      viewStory(data.projectId, data.id);
     },
     owner: (data: StoryDisplay) => {
-      viewUser(data.owner)
+      viewUser(data.owner);
     },
     priority: (data: StoryDisplay) => {
       console.log("Priority", data);
@@ -109,11 +117,11 @@ const StoriesList = ({selectedProject}: {selectedProject: string}) => {
     status: (data: StoryDisplay) => {
       console.log("Status", data);
     },
-  }
+  };
 
   return (
     <div className="flex-1 p-8 bg-slate-50/50 rounded-lg">
-      <DataTable columns={columns} data={tableData} onClicks={onClicks}/>
+      <DataTable columns={columns} data={tableData} onClicks={onClicks} />
     </div>
-  )
+  );
 };

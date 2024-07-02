@@ -11,5 +11,5 @@ const CreateStoryPage = () => {
     <PageWrapper>
       <CreateStoryForm />
     </PageWrapper>
-  );  
+  );
 };
