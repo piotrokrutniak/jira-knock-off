@@ -32,7 +32,7 @@ export const ProjectSelector = () => {
                 project.name.toLowerCase().includes(searchString) ||
                 project.description.includes(searchString),
             )
-            .map((project) => <ProjectPanel key={project._id} {...project} />)}
+            .map((project) => <ProjectPanel key={project.id} {...project} />)}
           {!searchString && <AddProjectPanel />}
         </div>
       ) : (
@@ -51,7 +51,7 @@ const ProjectPanel = (project: ProjectType) => {
 
   const handleProjectClick = () => {
     // navigate({ to: `/projects/${project.id}` }).catch(console.error);
-    setSelectedProject(project._id);
+    setSelectedProject(project.id);
   };
 
   return (

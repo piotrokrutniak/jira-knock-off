@@ -1,37 +1,37 @@
 export type ProjectType = {
-  _id: string;
+  id: string;
   name: string;
   description: string;
 };
 
 export type UserType = {
-  _id: string;
+  id: string;
   name: string;
   email: string;
   projects: ProjectType[];
 };
 
 export type StoryType = {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   status: StatusType;
   priority: PriorityType;
   project: ProjectType;
-  ownerId: string;
+  owner: UserType;
   // MongoDb timestamp createdAt
   // MongoDb timestamp modifiedAt
 };
 
 export type TaskType = {
-  _id: string;
+  id: string;
   title: string;
   description: string;
   priority: PriorityType;
   story: StoryType;
   doneByEstimate: string;
   status: StatusType;
-  ownerId: string;
+  owner: UserType;
   startedAt: string;
   completedAt: string;
   userId: string; // developer or devops
