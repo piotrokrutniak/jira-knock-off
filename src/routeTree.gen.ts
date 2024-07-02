@@ -21,6 +21,9 @@ const IndexLazyImport = createFileRoute('/')()
 const ProjectsCreateLazyImport = createFileRoute('/projects/create')()
 const AuthSignUpLazyImport = createFileRoute('/auth/signUp')()
 const AuthSignInLazyImport = createFileRoute('/auth/signIn')()
+const ProjectsStoriesCreateLazyImport = createFileRoute(
+  '/projects/stories/create',
+)()
 
 // Create/Update Routes
 
@@ -50,6 +53,13 @@ const AuthSignInLazyRoute = AuthSignInLazyImport.update({
   path: '/auth/signIn',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/auth/signIn.lazy').then((d) => d.Route))
+
+const ProjectsStoriesCreateLazyRoute = ProjectsStoriesCreateLazyImport.update({
+  path: '/projects/stories/create',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/projects/stories/create.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -90,6 +100,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsCreateLazyImport
       parentRoute: typeof rootRoute
     }
+    '/projects/stories/create': {
+      id: '/projects/stories/create'
+      path: '/projects/stories/create'
+      fullPath: '/projects/stories/create'
+      preLoaderRoute: typeof ProjectsStoriesCreateLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -101,6 +118,7 @@ export const routeTree = rootRoute.addChildren({
   AuthSignInLazyRoute,
   AuthSignUpLazyRoute,
   ProjectsCreateLazyRoute,
+  ProjectsStoriesCreateLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -115,7 +133,8 @@ export const routeTree = rootRoute.addChildren({
         "/about",
         "/auth/signIn",
         "/auth/signUp",
-        "/projects/create"
+        "/projects/create",
+        "/projects/stories/create"
       ]
     },
     "/": {
@@ -132,6 +151,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/projects/create": {
       "filePath": "projects/create.lazy.tsx"
+    },
+    "/projects/stories/create": {
+      "filePath": "projects/stories/create.lazy.tsx"
     }
   }
 }

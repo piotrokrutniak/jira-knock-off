@@ -33,7 +33,7 @@ export const ProjectSelector = () => {
                 project.description.includes(searchString),
             )
             .map((project) => <ProjectPanel key={project._id} {...project} />)}
-          <AddProjectPanel />
+          {!searchString && <AddProjectPanel />}
         </div>
       ) : (
         <div className="flex h-64">
