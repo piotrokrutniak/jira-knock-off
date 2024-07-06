@@ -2,7 +2,7 @@ import { CreateProjectForm } from "@components/feature/projects/CreateProjectFor
 import { PageWrapper } from "@components/generic/PageWrapper";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/projects/create")({
+export const Route = createLazyFileRoute("/project/create")({
   component: () => <CreateProjectPage />,
 });
 

@@ -5,8 +5,8 @@ import { useUserContext } from "@hooks/users/UserManager";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo } from "react";
 import { FaArrowLeft, FaPlus } from "react-icons/fa";
-import { DataTable } from "../stories/storiesList/dataTable";
 import { StoryDisplay, columns } from "../stories/storiesList/columns";
+import { DataTable } from "@components/generic/dataTable/dataTable";
 
 export const ProjectView = () => {
   const { selectedProject, setSelectedProject } = useUserContext();
@@ -98,7 +98,7 @@ const StoriesList = ({ selectedProject }: { selectedProject: string }) => {
   };
 
   const viewStory = (projectId: string, storyId: string) => {
-    navigate({ to: `/projects/${projectId}/stories/${storyId}` }).catch(
+    navigate({ to: `/project/${projectId}/story/${storyId}` }).catch(
       console.error,
     );
   };
@@ -120,7 +120,7 @@ const StoriesList = ({ selectedProject }: { selectedProject: string }) => {
   };
 
   return (
-    <div className="flex-1 p-8 bg-slate-50/50 rounded-lg">
+    <div className="flex-1 p-8 bg-slate-100/5 rounded-lg">
       <DataTable columns={columns} data={tableData} onClicks={onClicks} />
     </div>
   );

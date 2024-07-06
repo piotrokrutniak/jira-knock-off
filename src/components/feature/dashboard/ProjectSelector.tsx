@@ -78,7 +78,7 @@ const AddProjectPanel = () => {
         "shadow-sm hover:shadow-md transition-all cursor-pointer hover:bg-slate-200/5",
       ])}
       role="button"
-      onClick={() => navigate({ to: "/projects/create" }).catch(console.error)}
+      onClick={() => navigate({ to: "/project/create" }).catch(console.error)}
     >
       <FaPlus className="flex" />
     </div>

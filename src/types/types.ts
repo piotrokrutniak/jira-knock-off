@@ -6,7 +6,10 @@ export type ProjectType = {
 
 export type UserType = {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  fullName: string;
+  roles: string[];
   email: string;
   projects: ProjectType[];
 };

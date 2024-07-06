@@ -4,7 +4,7 @@ export const PageWrapper = ({
   children,
   className,
 }: {
-  children: JSX.Element;
+  children: JSX.Element[] | JSX.Element;
   className?: string;
 }) => {
   const styles = clsx(
