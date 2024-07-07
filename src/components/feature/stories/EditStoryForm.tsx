@@ -99,7 +99,7 @@ export const EditStoryForm = ({ story }: { story: StoryType }) => {
           label="Status"
           placeholder="Select project status"
         />
-        
+
         {/* TODO: Implement controlled dropdowns */}
         {isError && <div className="text-red-500">{error.message}</div>}
         {isSuccess && (

@@ -1,15 +1,15 @@
-import { EditStoryForm } from '@components/feature/stories/EditStoryForm';
-import { PageWrapper } from '@components/generic/PageWrapper';
-import { H1Text } from '@components/generic/textComponents/h1';
-import { Button } from '@components/ui/button';
-import { StoryType } from '@customtypes/types';
-import { useQueryGetStoryById } from '@hooks/stories/queries/useQueryGetStoryById';
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react';
+import { EditStoryForm } from "@components/feature/stories/EditStoryForm";
+import { PageWrapper } from "@components/generic/PageWrapper";
+import { H1Text } from "@components/generic/textComponents/h1";
+import { Button } from "@components/ui/button";
+import { StoryType } from "@customtypes/types";
+import { useQueryGetStoryById } from "@hooks/stories/queries/useQueryGetStoryById";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
-export const Route = createFileRoute('/project/$projectId/story/$storyId')({
-  component: () => <StoryView />
-})
+export const Route = createFileRoute("/project/$projectId/story/$storyId")({
+  component: () => <StoryView />,
+});
 
 const StoryView = () => {
   const [editMode, setEditMode] = useState(false);
@@ -20,12 +20,22 @@ const StoryView = () => {
 
   return (
     <PageWrapper>
-      {editMode ? <StoryEdit toggleEditMode={toggleEditMode} story={story} /> : <StoryHeader story={story} toggleEditMode={toggleEditMode} />}
+      {editMode ? (
+        <StoryEdit toggleEditMode={toggleEditMode} story={story} />
+      ) : (
+        <StoryHeader story={story} toggleEditMode={toggleEditMode} />
+      )}
     </PageWrapper>
   );
 };
 
-const StoryHeader = ({ story, toggleEditMode }: { story?: StoryType, toggleEditMode: () => void }) => {
+const StoryHeader = ({
+  story,
+  toggleEditMode,
+}: {
+  story?: StoryType;
+  toggleEditMode: () => void;
+}) => {
   return story ? (
     <section className="flex flex-col gap-6">
       <div className="flex justify-between gap-6">
@@ -38,26 +48,28 @@ const StoryHeader = ({ story, toggleEditMode }: { story?: StoryType, toggleEditM
   ) : (
     <></>
   );
-}
+};
 
-const StoryEdit = ({ story, toggleEditMode }: { story?: StoryType, toggleEditMode: () => void }) => {
-  return story ? (
-    <EditStoryForm story={story} />
-  ) : (
-    <></>
-  );
-}
+const StoryEdit = ({
+  story,
+  toggleEditMode,
+}: {
+  story?: StoryType;
+  toggleEditMode: () => void;
+}) => {
+  return story ? <EditStoryForm story={story} /> : <></>;
+};
 
 const StoryDetails = ({ story }: { story: StoryType }) => {
   return (
     <section className="flex justify-between gap-6">
       <div className="flex flex-col gap-2">
         <p>Status: {story?.status}</p>
-        <p>Priority: {story?.priority}</p>  
+        <p>Priority: {story?.priority}</p>
       </div>
       <div className="flex flex-col gap-2">
         <p>Owner: {story?.owner.fullName}</p>
       </div>
     </section>
-  )
-}
+  );
+};
