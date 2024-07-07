@@ -8,9 +8,9 @@ export const StatusSelectInput = ({
   control: EditStoryFormControlType;
 }) => {
   const items = [
-    { value: StoryStatus.Todo, label: "Todo" },
+    { value: StoryStatus.Open, label: "Open" },
     { value: StoryStatus.InProgress, label: "In Progress" },
-    { value: StoryStatus.Done, label: "Done" },
+    { value: StoryStatus.Closed, label: "Closed" },
   ];
 
   return (

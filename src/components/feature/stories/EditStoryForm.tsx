@@ -9,15 +9,16 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { StoryType } from "@domain/types";
 import { useMutationEditStoryById } from "@hooks/stories/mutations/useMutationEditStoryById";
-import { ComboBox } from "@components/generic/ComboBox";
 import { PrioritySelectInput } from "./formElements/PrioritySelectInput";
 import { StatusSelectInput } from "./formElements/StatusSelectInput";
+import { UsersComboBox } from "./formElements/UsersComboBox";
 
 const formSchema = z.object({
   id: z.string().min(2).max(50),
   title: z.string().min(2).max(50),
   description: z.string().min(0).max(200).optional(),
-  ownerId: z.string().min(2).max(50),
+  owner: z.string().min(2).max(50),
+  project: z.string().min(2).max(50),
   priority: z.string().min(0).max(20),
   status: z.string().min(2).max(50),
 });
@@ -26,7 +27,8 @@ export type EditStoryDto = z.infer<typeof formSchema>;
 
 export type EditStoryFormControlType = Control<
   {
-    ownerId: string;
+    owner: string;
+    project: string;
     title: string;
     id: string;
     status: string;
@@ -50,7 +52,8 @@ export const EditStoryForm = ({ story }: { story: StoryType }) => {
       id: story.id,
       title: story.title,
       description: story.description,
-      ownerId: story.owner.id,
+      owner: story.owner.id,
+      project: story.project.id,
       priority: story.priority,
       status: story.status,
     },
@@ -58,7 +61,7 @@ export const EditStoryForm = ({ story }: { story: StoryType }) => {
 
   const onSubmit = (values: EditStoryDto) => {
     console.log(values);
-    // createProject(values);
+    editStory(values);
   };
 
   const onCancel = () => {
@@ -92,15 +95,9 @@ export const EditStoryForm = ({ story }: { story: StoryType }) => {
           </div>
           <div className="flex flex-col space-y-2">
             <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2">
-              Project owner
+              Story owner
             </p>
-            <ComboBox
-              emptyValue="Select project owner"
-              placeholder="Search for project owner"
-              items={[]}
-              // value={form.getValues("ownerId")}
-              setValue={(value) => form.setValue("ownerId", value)}
-            />
+            <UsersComboBox value={form.getValues("owner")} onChange={(value) => form.setValue("owner", value)} />
           </div>
         </div>
         <ControlledFormTextArea

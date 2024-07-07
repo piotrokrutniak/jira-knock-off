@@ -1,4 +1,4 @@
-import { ProjectType } from "@/domain/types";
+import { ProjectType } from "@domain/types";
 import { axiosInstance } from "@hooks/axios/useAxios";
 import { useQuery } from "@tanstack/react-query";
 

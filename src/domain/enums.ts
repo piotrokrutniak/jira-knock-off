@@ -5,7 +5,7 @@ export enum StoryPriority {
 }
 
 export enum StoryStatus {
-  "Todo" = "todo",
+  "Open" = "open",
   "InProgress" = "in_progress",
-  "Done" = "done",
+  "Closed" = "closed",
 }

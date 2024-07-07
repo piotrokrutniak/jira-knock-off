@@ -9,6 +9,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@components/ui/command";
 import {
   Popover,
@@ -32,7 +33,7 @@ type ComboBoxItem = {
 export const ComboBox = ({
   placeholder,
   emptyValue,
-  items,
+  items = [],
   value,
   setValue,
 }: ComboBoxProps) => {
@@ -58,6 +59,8 @@ export const ComboBox = ({
           <CommandInput placeholder={placeholder} />
           <CommandEmpty>{emptyValue}</CommandEmpty>
           <CommandGroup>
+            <CommandList>
+
             {items.map((item) => (
               <CommandItem
                 key={item.value}
@@ -76,6 +79,7 @@ export const ComboBox = ({
                 {item.label}
               </CommandItem>
             ))}
+            </CommandList>
           </CommandGroup>
         </Command>
       </PopoverContent>
