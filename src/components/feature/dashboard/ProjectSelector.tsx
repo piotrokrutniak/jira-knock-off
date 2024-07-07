@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FaPlus } from "react-icons/fa";
 import { Input } from "@components/ui/input";
-import { ProjectType } from "@customtypes/types";
+import { ProjectType } from "@/domain/types";
 import { useNavigate } from "@tanstack/react-router";
 import { useQueryGetProjects } from "@hooks/projects/queries/useQueryGetProjects";
 import { useUserContext } from "@hooks/users/UserManager";

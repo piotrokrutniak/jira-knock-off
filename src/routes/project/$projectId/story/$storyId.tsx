@@ -2,7 +2,7 @@ import { EditStoryForm } from "@components/feature/stories/EditStoryForm";
 import { PageWrapper } from "@components/generic/PageWrapper";
 import { H1Text } from "@components/generic/textComponents/h1";
 import { Button } from "@components/ui/button";
-import { StoryType } from "@customtypes/types";
+import { StoryType } from "@/domain/types";
 import { useQueryGetStoryById } from "@hooks/stories/queries/useQueryGetStoryById";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";

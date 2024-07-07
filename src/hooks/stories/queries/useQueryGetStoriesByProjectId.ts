@@ -1,4 +1,4 @@
-import { StoryType } from "@customtypes/types";
+import { StoryType } from "@/domain/types";
 import { axiosInstance } from "@hooks/axios/useAxios";
 import { useQuery } from "@tanstack/react-query";
 

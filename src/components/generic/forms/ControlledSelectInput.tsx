@@ -17,78 +17,56 @@ import {
 import { HTMLInputTypeAttribute } from "react";
 import { Control } from "react-hook-form";
 
-export const ControlledSelectInput = ({
-  control,
-  label,
-  name,
-}: {
+type ControlledSelectInputProps = {
   control: Control<any>;
   label: string;
   name: string;
   placeholder: string;
+  items: SelectItem[];
+  selectLabel?: string;
   type?: HTMLInputTypeAttribute;
-}) => {
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => {
-        return (
-          <FormItem>
-            <FormLabel>{label}</FormLabel>
-            <FormControl>
-              <Select {...field}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Assign user" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Fruits</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        );
-      }}
-    />
-  );
 };
 
-// import * as React from "react"
+type SelectItem = {
+  value: string;
+  label: string;
+};
 
-// import {
-//   Select,
-//   SelectContent,
-//   SelectGroup,
-//   SelectItem,
-//   SelectLabel,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select"
-
-// export function SelectDemo() {
-//   return (
-//     <Select>
-//       <SelectTrigger className="w-[180px]">
-//         <SelectValue placeholder="Select a fruit" />
-//       </SelectTrigger>
-//       <SelectContent>
-//         <SelectGroup>
-//           <SelectLabel>Fruits</SelectLabel>
-//           <SelectItem value="apple">Apple</SelectItem>
-//           <SelectItem value="banana">Banana</SelectItem>
-//           <SelectItem value="blueberry">Blueberry</SelectItem>
-//           <SelectItem value="grapes">Grapes</SelectItem>
-//           <SelectItem value="pineapple">Pineapple</SelectItem>
-//         </SelectGroup>
-//       </SelectContent>
-//     </Select>
-//   )
-// }
+export const ControlledSelectInput = ({
+  control,
+  label,
+  selectLabel,
+  placeholder,
+  name,
+  items,
+}: ControlledSelectInputProps) => (
+  <FormField
+    control={control}
+    name={name}
+    render={({ field }) => {
+      return (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <FormControl>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {selectLabel && <SelectLabel>{selectLabel}</SelectLabel>}
+                  {items.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      );
+    }}
+  />
+);

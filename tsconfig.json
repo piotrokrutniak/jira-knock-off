@@ -8,7 +8,7 @@
       "@assets/*": ["./src/assets/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@utils/*": ["./src/utils/*"],
-      "@customtypes/*": ["./src/types/*"]
+      "@domain/*": ["./src/domain/*"]
     }
   },
   "include": ["src"],

@@ -1,16 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@components/ui/button";
 import { Form } from "@components/ui/form";
 import { ControlledFormInput } from "@components/generic/forms/ControlledFormInput";
 import { ControlledFormTextArea } from "@components/generic/forms/ControlledFormTextArea";
 import { useNavigate } from "@tanstack/react-router";
-import { useMutationCreateProject } from "@hooks/projects/mutations/useMutationCreateProject";
 import { useEffect } from "react";
-import { ControlledSelectInput } from "@components/generic/forms/ControlledSelectInput";
-import { StoryType } from "@customtypes/types";
+import { StoryType } from "@domain/types";
 import { useMutationEditStoryById } from "@hooks/stories/mutations/useMutationEditStoryById";
+import { ComboBox } from "@components/generic/ComboBox";
+import { PrioritySelectInput } from "./formElements/PrioritySelectInput";
+import { StatusSelectInput } from "./formElements/StatusSelectInput";
 
 const formSchema = z.object({
   id: z.string().min(2).max(50),
@@ -22,6 +23,18 @@ const formSchema = z.object({
 });
 
 export type EditStoryDto = z.infer<typeof formSchema>;
+
+export type EditStoryFormControlType = Control<
+  {
+    ownerId: string;
+    title: string;
+    id: string;
+    status: string;
+    priority: string;
+    description?: string | undefined;
+  },
+  any
+>;
 
 export const EditStoryForm = ({ story }: { story: StoryType }) => {
   const navigate = useNavigate();
@@ -72,35 +85,30 @@ export const EditStoryForm = ({ story }: { story: StoryType }) => {
           label="Project Name"
           placeholder="Enter project name"
         />
+        <div className="display flex justify-between gap-8">
+          <div>
+            <PrioritySelectInput control={form.control} />
+            <StatusSelectInput control={form.control} />
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2">
+              Project owner
+            </p>
+            <ComboBox
+              emptyValue="Select project owner"
+              placeholder="Search for project owner"
+              items={[]}
+              // value={form.getValues("ownerId")}
+              setValue={(value) => form.setValue("ownerId", value)}
+            />
+          </div>
+        </div>
         <ControlledFormTextArea
           name="description"
           control={form.control}
           label="Project description"
           placeholder="Enter project description"
         />
-        {
-          // TODO: Replace with combobox
-        }
-        <ControlledSelectInput
-          name="ownerId"
-          control={form.control}
-          label="Owner"
-          placeholder="Select project owner"
-        />
-        <ControlledSelectInput
-          name="priority"
-          control={form.control}
-          label="Priority"
-          placeholder="Select project priority"
-        />
-        <ControlledSelectInput
-          name="status"
-          control={form.control}
-          label="Status"
-          placeholder="Select project status"
-        />
-
-        {/* TODO: Implement controlled dropdowns */}
         {isError && <div className="text-red-500">{error.message}</div>}
         {isSuccess && (
           <div className="text-green-500">
