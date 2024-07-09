@@ -7,9 +7,10 @@ export const Route = createFileRoute("/project/$projectId/story/create")({
 });
 
 const StoryCreate = () => {
+  const { projectId } = Route.useParams();
   return (
     <PageWrapper>
-      <CreateStoryForm />
+      <CreateStoryForm projectId={projectId} />
     </PageWrapper>
   );
 };

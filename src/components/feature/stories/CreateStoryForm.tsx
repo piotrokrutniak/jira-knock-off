@@ -7,10 +7,10 @@ import { ControlledFormInput } from "@components/generic/forms/ControlledFormInp
 import { ControlledFormTextArea } from "@components/generic/forms/ControlledFormTextArea";
 import { useNavigate } from "@tanstack/react-router";
 import { useMutationCreateStory } from "@hooks/stories/mutations/useMutationCreateStory";
-import { UsersComboBox } from "./formElements/UsersComboBox";
 import { PrioritySelectInput } from "./formElements/PrioritySelectInput";
 import { StatusSelectInput } from "./formElements/StatusSelectInput";
 import { ControlledUsersCombobox } from "@components/generic/forms/ControlledUsersCombobox";
+import { StoryStatus } from "@domain/enums";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -35,7 +35,7 @@ export type CreateStoryFormControlType = Control<
   any
 >;
 
-export const CreateStoryForm = () => {
+export const CreateStoryForm = ({ projectId }: { projectId: string }) => {
   const navigate = useNavigate();
   const handleSuccess = () => {
     navigate({ to: "/" });
@@ -52,14 +52,14 @@ export const CreateStoryForm = () => {
       title: "",
       description: "",
       owner: "",
-      project: "",
+      project: projectId,
       priority: "",
-      status: "",
+      status: StoryStatus.Open,
     },
   });
 
   const onSubmit = (values: CreateStoryDto) => {
-    console.log("submited", values);
+    console.log("submitted", values);
     createStory(values);
   };
 
