@@ -5,7 +5,7 @@ import { Control } from "react-hook-form";
 
 type ControlledUsersComboboxProps = {
   name: string;
-  control: Control<any>
+  control: Control<any>;
 };
 
 export const ControlledUsersCombobox = ({

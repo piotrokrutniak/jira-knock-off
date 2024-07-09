@@ -23,7 +23,7 @@ export const UsersComboBox = ({
   useEffect(() => {
     console.log(userItems);
   }, [userItems]);
- 
+
   return userItems ? (
     <ComboBox
       items={userItems}
