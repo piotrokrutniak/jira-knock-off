@@ -97,7 +97,10 @@ export const EditStoryForm = ({ story }: { story: StoryType }) => {
             <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2">
               Story owner
             </p>
-            <UsersComboBox value={form.getValues("owner")} onChange={(value) => form.setValue("owner", value)} />
+            <UsersComboBox
+              value={form.getValues("owner")}
+              onChange={(value) => form.setValue("owner", value)}
+            />
           </div>
         </div>
         <ControlledFormTextArea

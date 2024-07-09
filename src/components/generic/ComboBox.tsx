@@ -57,30 +57,29 @@ export const ComboBox = ({
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder={placeholder} />
-          <CommandEmpty>{emptyValue}</CommandEmpty>
-          <CommandGroup>
             <CommandList>
-
-            {items.map((item) => (
-              <CommandItem
-                key={item.value}
-                value={item.value}
-                onSelect={(currentValue: string) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setOpen(false);
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === item.value ? "opacity-100" : "opacity-0",
-                  )}
-                />
-                {item.label}
-              </CommandItem>
-            ))}
+              <CommandEmpty>{emptyValue}</CommandEmpty>
+              <CommandGroup>
+                  {items.map((item) => (
+                    <CommandItem
+                      key={item.value}
+                      value={item.value}
+                      onSelect={(currentValue: string) => {
+                        setValue(currentValue === value ? "" : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === item.value ? "opacity-100" : "opacity-0",
+                        )}
+                      />
+                      {item.label}
+                    </CommandItem>
+                  ))}
+              </CommandGroup> 
             </CommandList>
-          </CommandGroup>
         </Command>
       </PopoverContent>
     </Popover>

@@ -19,4 +19,4 @@ const getUsers = () => {
 export type UsersResponse = {
   results: UserType[];
   count: number;
-}
+};

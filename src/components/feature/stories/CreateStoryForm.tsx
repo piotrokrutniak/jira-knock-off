@@ -1,62 +1,71 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Control, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@components/ui/button";
 import { Form } from "@components/ui/form";
 import { ControlledFormInput } from "@components/generic/forms/ControlledFormInput";
 import { ControlledFormTextArea } from "@components/generic/forms/ControlledFormTextArea";
 import { useNavigate } from "@tanstack/react-router";
-import { useMutationCreateProject } from "@hooks/projects/mutations/useMutationCreateProject";
-import { useEffect } from "react";
-import { ControlledSelectInput } from "@components/generic/forms/ControlledSelectInput";
+import { useMutationCreateStory } from "@hooks/stories/mutations/useMutationCreateStory";
+import { UsersComboBox } from "./formElements/UsersComboBox";
+import { PrioritySelectInput } from "./formElements/PrioritySelectInput";
+import { StatusSelectInput } from "./formElements/StatusSelectInput";
+import { ControlledUsersCombobox } from "@components/generic/forms/ControlledUsersCombobox";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
   description: z.string().min(0).max(200).optional(),
-  ownerId: z.string().min(2).max(50),
-  projectId: z.string().min(2).max(50),
+  owner: z.string().min(2).max(50),
+  project: z.string().min(2).max(50),
   priority: z.string().min(0).max(20),
   status: z.string().min(2).max(50),
 });
 
 export type CreateStoryDto = z.infer<typeof formSchema>;
 
+export type CreateStoryFormControlType = Control<
+  {
+    owner: string;
+    project: string;
+    title: string;
+    status: string;
+    priority: string;
+    description?: string | undefined;
+  },
+  any
+>;
+
 export const CreateStoryForm = () => {
   const navigate = useNavigate();
+  const handleSuccess = () => {
+    navigate({ to: "/" });
+  };
   const {
-    mutate: createProject,
+    mutate: createStory,
     isError,
     error,
     isSuccess,
-  } = useMutationCreateProject();
+  } = useMutationCreateStory(handleSuccess);
   const form = useForm<CreateStoryDto>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
       description: "",
-      ownerId: "",
-      projectId: "",
+      owner: "",
+      project: "",
       priority: "",
       status: "",
     },
   });
 
   const onSubmit = (values: CreateStoryDto) => {
-    console.log(values);
-    // createProject(values);
+    console.log("submited", values);
+    createStory(values);
   };
 
   const onCancel = () => {
     navigate({ to: "/" });
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setTimeout(() => {
-        navigate({ to: "/" });
-      }, 1000);
-    }
-  }, [isSuccess, navigate]);
 
   return (
     <Form {...form}>
@@ -70,22 +79,28 @@ export const CreateStoryForm = () => {
           label="Project Name"
           placeholder="Enter project name"
         />
+        <div className="display flex justify-between gap-8">
+          <div>
+            <PrioritySelectInput control={form.control} />
+            <StatusSelectInput control={form.control} />
+          </div>
+          <div className="flex flex-col space-y-2">
+            <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2">
+              Story owner
+            </p>
+            {/* <UsersComboBox
+              value={form.getValues("owner")}
+              onChange={(value) => form.setValue("owner", value)}
+            /> */}
+            <ControlledUsersCombobox name="owner" control={form.control} />
+          </div>
+        </div>
         <ControlledFormTextArea
           name="description"
           control={form.control}
           label="Project description"
           placeholder="Enter project description"
         />
-        {
-          // TODO: Replace with combobox
-        }
-        <ControlledSelectInput
-          name="ownerId"
-          control={form.control}
-          label="Owner"
-          placeholder="Select project owner"
-        />
-        {/* TODO: Implement controlled dropdowns */}
         {isError && <div className="text-red-500">{error.message}</div>}
         {isSuccess && (
           <div className="text-green-500">

@@ -1,11 +1,12 @@
 import { ControlledSelectInput } from "@components/generic/forms/ControlledSelectInput";
 import { EditStoryFormControlType } from "../EditStoryForm";
 import { StoryStatus } from "@domain/enums";
+import { CreateStoryFormControlType } from "../CreateStoryForm";
 
 export const StatusSelectInput = ({
   control,
 }: {
-  control: EditStoryFormControlType;
+  control: EditStoryFormControlType | CreateStoryFormControlType;
 }) => {
   const items = [
     { value: StoryStatus.Open, label: "Open" },

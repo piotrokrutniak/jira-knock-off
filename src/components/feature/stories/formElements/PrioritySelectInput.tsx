@@ -1,11 +1,12 @@
 import { ControlledSelectInput } from "@components/generic/forms/ControlledSelectInput";
 import { EditStoryFormControlType } from "../EditStoryForm";
 import { StoryPriority } from "@domain/enums";
+import { CreateStoryFormControlType } from "../CreateStoryForm";
 
 export const PrioritySelectInput = ({
   control,
 }: {
-  control: EditStoryFormControlType;
+  control: EditStoryFormControlType | CreateStoryFormControlType;
 }) => {
   const items = [
     { value: StoryPriority.Low, label: "Low" },

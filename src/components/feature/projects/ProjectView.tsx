@@ -42,7 +42,9 @@ const ProjectStories = () => {
   const { selectedProject } = useUserContext();
 
   const handleAddStory = () => {
-    navigate({ to: "/projects/stories/create" }).catch(console.error);
+    navigate({ to: `/project/${selectedProject}/story/create` }).catch(
+      console.error,
+    );
   };
 
   return (
@@ -54,15 +56,6 @@ const ProjectStories = () => {
         </Button>
       </div>
       <StoriesList selectedProject={selectedProject ?? ""} />
-      {/* <NoStories /> */}
-    </div>
-  );
-};
-
-const NoStories = () => {
-  return (
-    <div className="flex-1 content-center p-8 bg-slate-50/50 rounded-lg">
-      <p className="text-center">Any stories you create will go here.</p>
     </div>
   );
 };

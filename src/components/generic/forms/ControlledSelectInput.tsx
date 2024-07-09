@@ -15,10 +15,10 @@ import {
   SelectValue,
 } from "@components/ui/select";
 import { HTMLInputTypeAttribute } from "react";
-import { Control } from "react-hook-form";
+import { Control, FieldValues } from "react-hook-form";
 
 type ControlledSelectInputProps = {
-  control: Control<any>;
+  control: Control<FieldValues>;
   label: string;
   name: string;
   placeholder: string;

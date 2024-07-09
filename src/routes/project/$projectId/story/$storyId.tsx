@@ -2,10 +2,13 @@ import { EditStoryForm } from "@components/feature/stories/EditStoryForm";
 import { PageWrapper } from "@components/generic/PageWrapper";
 import { H1Text } from "@components/generic/textComponents/h1";
 import { Button } from "@components/ui/button";
-import { StoryType } from "@/domain/types";
+import { StoryType } from "@domain/types";
 import { useQueryGetStoryById } from "@hooks/stories/queries/useQueryGetStoryById";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { DeleteButtonWithConfirmation } from "@components/generic/DeleteButtonWithConfirmation";
+import { useNavigate } from "@tanstack/react-router";
+import { useMutationDeleteStoryById } from "@hooks/stories/mutations/useMutationDeleteStoryById";
 
 export const Route = createFileRoute("/project/$projectId/story/$storyId")({
   component: () => <StoryView />,
@@ -36,11 +39,24 @@ const StoryHeader = ({
   story?: StoryType;
   toggleEditMode: () => void;
 }) => {
+  const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate({ to: "/" }).catch(console.error);
+  };
+  const { mutate: deleteStoryById } = useMutationDeleteStoryById(handleGoBack);
+
+  const handleDelete = () => {
+    deleteStoryById(story?.id ?? "");
+  };
+
   return story ? (
     <section className="flex flex-col gap-6">
       <div className="flex justify-between gap-6">
         <H1Text>{story.title}</H1Text>
-        <Button onClick={toggleEditMode}>Edit</Button>
+        <div className="flex gap-2">
+          <DeleteButtonWithConfirmation deleteAction={handleDelete} />
+          <Button onClick={toggleEditMode}>Edit</Button>
+        </div>
       </div>
       <StoryDetails story={story} />
       <p>{story.description}</p>
