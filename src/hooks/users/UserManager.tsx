@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { useNavigate } from "@tanstack/react-router";
 import { useMutationSignOut } from "./mutations/useMutationSignOut";
 
 export interface User {
@@ -43,7 +42,6 @@ export const useUserContext = () => {
 };
 
 const UserManager = ({ children }: { children: React.ReactNode }) => {
-  // const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [selectedProject, setSelectedProject] = useState<string | null>("");
   const isSignedIn = useMemo(() => !!user, [user]);
@@ -51,14 +49,22 @@ const UserManager = ({ children }: { children: React.ReactNode }) => {
 
   const handleSignOut = () => {
     setUser(null);
+    localStorage.setItem("user", JSON.stringify(null));
     signOut();
   };
 
   useEffect(() => {
-    if (!isSignedIn) {
-      // navigate({ to: "/auth/signIn" }).catch(console.error);
+    if(user) {
+      localStorage.setItem("user", JSON.stringify(user));
     }
-  }, [isSignedIn]);
+  }, [user]);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   return (
     <UserContext.Provider
