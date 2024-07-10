@@ -7,10 +7,9 @@ import { useEffect, useMemo } from "react";
 import { FaArrowLeft, FaPlus } from "react-icons/fa";
 import { StoryDisplay, columns } from "../stories/storiesList/columns";
 import { DataTable } from "@components/generic/dataTable/dataTable";
+import { parseStatus } from "@/utils/utils";
 
 export const ProjectView = () => {
-  const { selectedProject, setSelectedProject } = useUserContext();
-
   return <ProjectHeader />;
 };
 
@@ -76,9 +75,9 @@ const StoriesList = ({ selectedProject }: { selectedProject: string }) => {
         ...story,
         id: story.id,
         project: story.project.id,
-        owner: story.owner.id,
+        owner: story.owner.fullName,
         title: story.title,
-        status: story.status,
+        status: parseStatus(story.status),
         priority: story.priority,
         projectName: story.project.name,
         projectId: story.project.id,

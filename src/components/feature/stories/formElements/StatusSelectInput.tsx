@@ -2,6 +2,7 @@ import { ControlledSelectInput } from "@components/generic/forms/ControlledSelec
 import { EditStoryFormControlType } from "../EditStoryForm";
 import { StoryStatus } from "@domain/enums";
 import { CreateStoryFormControlType } from "../CreateStoryForm";
+import { parseStatus } from "@/utils/utils";
 
 export const StatusSelectInput = ({
   control,
@@ -9,9 +10,9 @@ export const StatusSelectInput = ({
   control: EditStoryFormControlType | CreateStoryFormControlType;
 }) => {
   const items = [
-    { value: StoryStatus.Open, label: "Open" },
-    { value: StoryStatus.InProgress, label: "In Progress" },
-    { value: StoryStatus.Closed, label: "Closed" },
+    { value: StoryStatus.Todo, label: parseStatus(StoryStatus.Todo) },
+    { value: StoryStatus.InProgress, label: parseStatus(StoryStatus.InProgress) },
+    { value: StoryStatus.Done, label: parseStatus(StoryStatus.Done) },
   ];
 
   return (

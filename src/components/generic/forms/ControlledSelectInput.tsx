@@ -18,7 +18,7 @@ import { HTMLInputTypeAttribute } from "react";
 import { Control, FieldValues } from "react-hook-form";
 
 type ControlledSelectInputProps = {
-  control: Control<FieldValues>;
+  control: Control<any>;
   label: string;
   name: string;
   placeholder: string;
