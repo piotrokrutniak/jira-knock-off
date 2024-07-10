@@ -54,7 +54,7 @@ const UserManager = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    if(user) {
+    if (user) {
       localStorage.setItem("user", JSON.stringify(user));
     }
   }, [user]);
